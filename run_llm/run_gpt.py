@@ -9,7 +9,7 @@ import json
 client = OpenAI()
 
 COMPLETION_PARAMS = {
-    "model": "gpt-4",
+    "model": "gpt-4",  # or "gpt-3.5-turbo"
     "temperature": 0,
     "max_tokens": 500,  # max tokens in the output
     "messages": [],
@@ -57,3 +57,4 @@ def generate_summaries():
 
 if __name__ == '__main__':
     generate_entities()
+    generate_summaries()

@@ -37,3 +37,4 @@ def generate_summaries():
 
 if __name__ == '__main__':
     generate_entities()
+    generate_summaries()

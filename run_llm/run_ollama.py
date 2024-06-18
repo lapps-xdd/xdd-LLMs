@@ -6,7 +6,7 @@ import tqdm
 from run_llm.construct_prompt import entity_extraction_instruct_prompt, summarization_instruct_prompt
 import json
 
-llm = Ollama(model="llama2", temperature=0, callback_manager=None)
+llm = Ollama(model="llama3", temperature=0, callback_manager=None)
 
 
 def generate_entities():
@@ -36,5 +36,4 @@ def generate_summaries():
 
 
 if __name__ == '__main__':
-    generate_entities()
     generate_summaries()

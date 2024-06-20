@@ -11,24 +11,22 @@ We have used this on Python 3.10.12 and 3.11.6. Python modules needed:
 ```shell
 pip install langchain==0.1.17
 pip install openai==1.35.2
-pip install tqdm
 ```
 
-Download Ollama from [https://github.com/ollama/ollama](https://github.com/ollama/ollama) and install it. To installing on Linux:
+Download Ollama from [https://github.com/ollama/ollama](https://github.com/ollama/ollama) and install it. To install on Linux:
 
 ```shell
 curl -fsSL https://ollama.com/install.sh | sh
 ```
 
-Then run ollama once so that the model is installed (we are using llama2 here):
+To pull some models:
 
-```bash
-$ ollama run llama2
+```shell
+ollama pull llama2
+ollama pull llama3
 ```
 
-This first loads the model (which is around 4GB) then starts the chat. Play with the chat if you like, then exit.
-
-On Linux, models are stored in `/usr/share/ollama/.ollama/models`, on Mac OSX, they are in `~/.ollama/models` (see the [faq](https://github.com/ollama/ollama/blob/main/docs/faq.md)).
+On Linux, models are stored in `/usr/share/ollama/.ollama/models`, see the [faq](https://github.com/ollama/ollama/blob/main/docs/faq.md)).
 
 If using OpenAI, you need a token. Either set an environment variable in your shell (see [https://help.openai.com](https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety)) or edit `run_llm/run_gpt`:
 

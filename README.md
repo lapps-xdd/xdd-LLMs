@@ -2,9 +2,16 @@
 
 Using Large Language Models for xDD processing.
 
-This includes running summarization and entity extraction, using GPT and Llama.
+This includes running summarization and entity extraction, using GPT and Llama. For now this is mostly focused on using Llama3 to extract summaries.
+
 
 ## Requirements
+
+To get this code if you do not already have it:
+
+```shell
+git clone https://github.com/lapps-xdd/xdd-LLMs
+```
 
 We have used this on Python 3.10.12 and 3.11.6. Python modules needed:
 
@@ -28,14 +35,20 @@ ollama pull llama3
 
 On Linux, models are stored in `/usr/share/ollama/.ollama/models`, see the [faq](https://github.com/ollama/ollama/blob/main/docs/faq.md)).
 
-If using OpenAI, you need a token. Either set an environment variable in your shell (see [https://help.openai.com](https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety)) or edit `run_llm/run_gpt`:
+If using OpenAI' GPT, you need a token. Either set an environment variable in your shell (see [https://help.openai.com](https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety)) or edit `run_llm/run_gpt`:
 
 ```python
 client = OpenAI(api_key="SOME_API_KEY")
 ```
 
+If you choose not to use and install OpenAI, then you should install the tqdm module.
 
-## Running Instructions
+```shell
+pip install tqdm
+```
+
+
+## Running the code
 
 Put your data in the `data/` folder structured as below:
 
@@ -79,10 +92,24 @@ COMPLETION_PARAMS = {
 ```
 
 
-### Summarization and Entity Extraction with LLama2
+### Summarization and Entity Extraction with LLama
 
 ```shell
 python -m run_llm.run_ollama
 ```
 
-You need to download a LLama2 checkpoint using [Ollama](https://github.com/ollama/ollama) to run this code.
+The code is uses Llama3 by default, if you want to use Llama2 edit the following line in `run_llm/run_ollama`:
+
+```python
+llm = Ollama(model="llama3", temperature=0, callback_manager=None)
+```
+
+The llama2 model is slightly smaller, 4.8GB versus 4.7GB, and seems to run a little bit slower, both take around 2s per document for summarization.
+
+You can also run the summarizer with a lot more control over input and output directories:
+
+```shell
+python -m run_llm.run_ollama --doc INDIR --sum OUTDIR [--overwrite] [--limit N]
+```
+
+In this case all files in INDIR are processed (these input data are still created using the xDD document processing code) and output is written to individual text files in OUTDIR. The --limit options limits processing to N files.

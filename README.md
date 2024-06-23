@@ -7,6 +7,8 @@ This includes running summarization and entity extraction, using GPT and Llama. 
 
 ## Requirements
 
+This will run on a recent CPU with some power, but it will be breathtakingly slow (on a recent Mac powerbook with an m1 chip it took 1-2 minutes per document to get a summary out of Llama). We have run this on a 10GB GPU, probably a bit less willl also work.
+
 To get this code if you do not already have it:
 
 ```shell

@@ -22,9 +22,7 @@ def generate_message(prompt_str: str):
 
 def run_gpt(prompt_str: str):
     COMPLETION_PARAMS["messages"] = generate_message(prompt_str)
-
     response = client.chat.completions.create(**COMPLETION_PARAMS)
-
     content = response.choices[0].message.content
     return content
 

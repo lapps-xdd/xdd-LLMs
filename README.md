@@ -202,6 +202,6 @@ root@06f6bc4aa555:/app# ollama start &
 Then you can run the summarizer:
 
 ```shell
-python3 -m llm.run_ollama --doc /data/doc/ --sum /data/sum
+root@06f6bc4aa555:/app# python3 -m llm.run_ollama --doc /data/doc/ --sum /data/sum
 ```
 

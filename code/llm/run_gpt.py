@@ -2,7 +2,7 @@ from scripts import DATA_DIR
 from scripts.load_data import load_json_text
 import tqdm
 
-from run_llm.construct_prompt import entity_extraction_instruct_prompt, summarization_instruct_prompt
+from llm.construct_prompt import entity_extraction_instruct_prompt, summarization_instruct_prompt
 from openai import OpenAI
 import json
 

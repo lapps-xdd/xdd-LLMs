@@ -11,8 +11,8 @@ from tqdm import tqdm
 
 from scripts import DATA_DIR
 from scripts.load_data import load_json_text
-from run_llm.construct_prompt import entity_extraction_instruct_prompt
-from run_llm.construct_prompt import summarization_instruct_prompt
+from llm.construct_prompt import entity_extraction_instruct_prompt
+from llm.construct_prompt import summarization_instruct_prompt
 
 
 llm = Ollama(model="llama3", temperature=0, callback_manager=None)
@@ -66,6 +66,7 @@ def process_directory(doc_dir: str, sum_dir: str,
                     text = load_json_text(doc)
                     try:
                         summary = llm.invoke(prompt(text))
+                        summary = trim_summary(summary)
                     except Exception:
                         log.write(f'{doc.name}\tfailed to invoke the LLM\n')
                         continue
@@ -83,6 +84,15 @@ def timestamp():
 
 def prompt(text: str):
     return summarization_instruct_prompt.invoke({"text": " ".join(text)}).to_string()
+
+
+def trim_summary(summary: str):
+    if '\n\n' in summary:
+        parts = summary.split('\n\n')
+        if len(parts) == 2:
+            if parts[0].startswith('Here is a brief summary of the text:'):
+                return parts[1]
+    return summary
 
 
 def write_log_header(log, command: str, indir: str, outdirs: list,
